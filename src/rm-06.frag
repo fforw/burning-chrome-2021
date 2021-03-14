@@ -283,6 +283,10 @@ vec2 getDistance(vec3 p) {
 
     vec2 result = vec2(pd, 1.0);
 
+    float box = sdSphere(p - vec3(0,3,0), 1.0   );
+
+    result = opUnion(result, box, 2.0);
+
 //    vec3 pHex = p;
 //    pHex.yz *= rotate90;
 //
@@ -303,23 +307,6 @@ vec2 getDistance(vec3 p) {
 //    prism = sdHexPrism(pHex - vec3(-3,  0, 1.05), vec2(0.5, 1.0)) - 0.05;
 //    result = opUnion(result, prism, 1.0);
 
-    float r1 = 2.0;
-    float r2 = 0.4;
-
-    p += vec3(0,-2.5,0);
-
-    vec2 q = vec2(length(p.xz)-r1,p.y);
-
-    float angle = atan2(p.x, p.z);
-    q *= Rot(angle * 3.5 + u_time);
-
-    q.y = abs(q.y) - 0.75 + sin(u_time) * 0.25;
-
-    float torus = sdRhombus(q,vec2(0.5, 0.31 )) - 0.1;
-
-    result = opUnion(result, torus, 2.0);
-
-    result.x *= 0.3;
 
     return result;
 
@@ -478,11 +465,12 @@ void main(void)
 
         col = ambient + ref * 0.01 + (diffuse + specular) * shadow;
 
+        col = pow(col, vec3(1.0/2.2));
+        col = norm * 0.5 + 0.5;
     }
     //col = applyFog(col, d, ro, rd, p);
 
 
-    col = pow(col, vec3(1.0/2.2));
 
     outColor = vec4(
         col,
