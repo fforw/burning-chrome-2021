@@ -1,5 +1,5 @@
-# Voronoi Raymarcher
+# Burning Chrome 2021
 
-Raymarching shader showing the a cube floating on a wavy sea.
+Raymarching shader recreating an effect in the spirit of one of my old demos.
 
-[Live demo](https://fforw.github.io/voronoi-sea/)
+[Live demo](https://fforw.github.io/burning-chrome-2021/)
